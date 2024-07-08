@@ -11,3 +11,7 @@ params:
   calc_saf: " -dosaf 1 -gl 1 "
   realSFS: " -fold 1 "
   winsfs: " "
+  fst_window_size: [50000, 30000, 40000]
+  fst_window_step: [10000, 5000,  20000]
+  theta_window_size: [50000]
+  theta_window_step: [10000]
