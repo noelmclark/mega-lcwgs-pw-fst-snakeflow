@@ -1,0 +1,13 @@
+bams: "config/by-lineage/bams.tsv"
+pwcomps: "config/by-lineage/pwcomps.tsv"
+genome: "CRCT-snakeflow/resources/genome/OmykA.fasta"
+
+modes: ["BY_CHROM"]
+chroms: "config/by-lineage/chroms.tsv"
+
+
+params:
+  angsd_bam_filters: " -minMapQ 20  -minQ 30 -baq 2 "
+  calc_saf: " -dosaf 1 -gl 1 "
+  realSFS: " -fold 1 "
+  winsfs: " "
