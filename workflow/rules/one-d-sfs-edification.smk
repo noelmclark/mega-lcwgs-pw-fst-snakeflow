@@ -44,4 +44,4 @@ rule one_d_winsfs:
 
 rule dest_edify_1d:
   input:
-    ALL_1D_REAL + ALL_1D_WIN
+    ALL_1D_WIN
