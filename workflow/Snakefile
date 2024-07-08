@@ -69,5 +69,62 @@ rule calc_saf:
 
 
 
+rule calc_2dsfs:
+  input:
+    saf1="results/{mode}/{chunk}/saf/{p1}.saf.idx",
+    saf2="results/{mode}/{chunk}/saf/{p2}.saf.idx",
+  output:
+    sfs="results/{mode}/{chunk}/sfs/{p1}--x--{p2}.ml"
+  params:
+    rs=config["params"]["realSFS"],
+    chunk_opt=get_chunk
+  threads: 1
+  conda:
+    "envs/angsd.yaml"
+  log:
+    "results/logs/calc_2dsfs/{mode}/{chunk}/{p1}--x--{p2}.txt"
+  benchmark:
+    "results/benchmarks/calc_2dsfs/{mode}/{chunk}/{p1}--x--{p2}.txt"
+  shell:
+    " realSFS -cores {threads} {params.rs} {params.chunk_opt} {input.saf1} {input.saf2} > {output.sfs} 2>{log}"
+
+
+rule calc_fst_binaries:
+  input:
+    saf1="results/{mode}/{chunk}/saf/{p1}.saf.idx",
+    saf2="results/{mode}/{chunk}/saf/{p2}.saf.idx",
+    sfs="results/{mode}/{chunk}/sfs/{p1}--x--{p2}.ml",
+  params:
+    rs=config["params"]["realSFS"],
+    chunk_opt=get_chunk
+  output:
+    "results/{mode}/{chunk}/fst_bin/{p1}--x--{p2}.fst.idx"
+  threads: 1
+  conda:
+    "envs/angsd.yaml"
+  log:
+    "results/logs/calc_fst_binaries/{mode}/{chunk}/{p1}--x--{p2}.txt"
+  benchmark:
+    "results/benchmarks/calc_fst_binaries/{mode}/{chunk}/{p1}--x--{p2}.txt"
+  shell:
+    " PREFIX=$(echo {output} | sed 's/\.fst\.idx$//g;');                             "
+    " realSFS fst index -cores {threads} {params.rs} {params.chunk_opt} {input.saf1} {input.saf2} -sfs {input.sfs} -fstout $PREFIX > {log} 2>&1  "
+
+
+
+rule extract_fst_values:
+  input:
+    "results/{mode}/{chunk}/fst_bin/{p1}--x--{p2}.fst.idx"
+  output:
+    "results/{mode}/{chunk}/fst/{p1}--x--{p2}.txt"
+  conda:
+    "envs/angsd.yaml"
+  log:
+    "results/logs/extract_fst_values/{mode}/{chunk}/{p1}--x--{p2}.txt"
+  benchmark:
+    "results/benchmarks/extract_fst_values/{mode}/{chunk}/{p1}--x--{p2}.txt"
+  shell:
+    "realSFS fst stats {input} > {output} 2>{log} "
+    
 
 
