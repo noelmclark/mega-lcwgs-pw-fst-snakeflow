@@ -80,7 +80,7 @@ rule calc_d_sliding_window:
 
 rule summarise_avg_theta_values:
   input:
-    files=ALLTHETA
+    files=ALLTHETAWIN
   output:
     "results/{mode}/summarized/all-thetas.tsv"
   log:
