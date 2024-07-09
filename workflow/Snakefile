@@ -11,9 +11,9 @@ include: "rules/diversity.smk"
 rule all:
   input:
     aves=expand("results/{mode}/summarized/all-pw-fsts.tsv", mode=config["modes"]),
-    #thetaaves=expand("results/{mode}/summarized/all-thetas.tsv", mode = config["modes"]),
-    #windows=ALLSLIDEWINDOWS,
-    #thetawindows=ALLTHETAWIN
+    thetaaves=expand("results/{mode}/summarized/all-thetas.tsv", mode = config["modes"]),
+    windows=ALLSLIDEWINDOWS,
+    thetawindows=ALLTHETAWIN
 
 
 rule index_fasta:
