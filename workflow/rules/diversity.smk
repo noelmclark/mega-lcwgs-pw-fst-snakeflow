@@ -86,7 +86,7 @@ rule summarise_avg_theta_values:
   log:
     "results/logs/summarise_avg_theta_values/{mode}/log.txt"
   shell:
-    "(echo \"file\tregion\tChr\tmidPos\ttW\ttP\ttF\ttH\ttL\tTajima\tfuf\tfud\tfayh\tzeng\tnSites\"; for i in {input.files}; do awk -v file=$i "
+    "(echo \'file\tregion\tChr\tmidPos\ttW\ttP\ttF\ttH\ttL\tTajima\tfuf\tfud\tfayh\tzeng\tnSites\'; for i in {input.files}; do awk -v file=$i "
     " 'BEGIN {{OFS = \"\t\";}} NF>0 {{print file, $0}}' $i; done; ) > {output} 2>{log}; "
     " sed -i '/#(indexStart,indexStop)(firstPos_withData,lastPos_withData)(WinStart,WinStop)/d' {output} "
     
@@ -99,6 +99,6 @@ rule summarise_sliding_window_theta_values:
   log:
     "results/logs/summarise_sliding_window_theta_values/{mode}/{p1}--size-{window_size}--step-{window_step}.txt"
   shell:
-    "((echo \"region\tChr\tmidPos\ttW\ttP\ttF\ttH\ttL\tTajima\tfuf\tfud\tfayh\tzeng\tnSites\"; cat {input.files}) > {output}; "
+    "((echo \'region\tChr\tmidPos\ttW\ttP\ttF\ttH\ttL\tTajima\tfuf\tfud\tfayh\tzeng\tnSites\'; cat {input.files}) > {output}; "
     " sed -i '/#(indexStart,indexStop)(firstPos_withData,lastPos_withData)(WinStart,WinStop)/d' {output}) > {log} 2>&1 "
   
