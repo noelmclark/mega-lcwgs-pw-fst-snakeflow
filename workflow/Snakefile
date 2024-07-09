@@ -10,8 +10,7 @@ include: "rules/diversity.smk"
 
 rule all:
   input:
-    sfs=expand("results/{mode}/{chunk}/winsfs/{{p1}}--x--{{p2}}.ml", mode=config["modes"], chunk=chrom_list)
-    #aves=expand("results/{mode}/summarized/all-pw-fsts.tsv", mode=config["modes"]),
+    aves=expand("results/{mode}/summarized/all-pw-fsts.tsv", mode=config["modes"]),
     #thetaaves=expand("results/{mode}/summarized/all-thetas.tsv", mode = config["modes"]),
     #windows=ALLSLIDEWINDOWS,
     #thetawindows=ALLTHETAWIN
