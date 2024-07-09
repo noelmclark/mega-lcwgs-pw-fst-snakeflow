@@ -49,7 +49,7 @@ rule calc_fst_binaries_winsfs:
   benchmark:
     "results/benchmarks/calc_fst_binaries_winsfs/{mode}/{chunk}/{p1}--x--{p2}.txt"
   shell:
-    " PREFIX=$(echo {output} | sed 's/\.fst\.idx$//g;');                             "
+    " PREFIX=$(echo {output} | sed 's/\\.fst\\.idx$//g;');                             "
     " realSFS fst index -cores {threads} {params.rs} {params.chunk_opt} {input.saf1} {input.saf2} -sfs {input.sfs} -fstout $PREFIX > {log} 2>&1  "
 
 
